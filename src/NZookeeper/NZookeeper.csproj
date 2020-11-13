@@ -5,6 +5,12 @@
     <Version>0.1.0</Version>
     <Company>stulzq</Company>
     <Authors>stulzq</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/stulzq/NZookeeper</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/stulzq/NZookeeper.git</RepositoryUrl>
+    <PackageTags>zookeeper</PackageTags>
+    <Description>Zookeeper client ,encapsulated from ZookeeperEx, simplified use</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +18,13 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="ZooKeeperNetEx" Version="3.4.12.4" />
     <PackageReference Include="MessagePack" Version="2.2.60" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
