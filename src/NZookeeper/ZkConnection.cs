@@ -36,7 +36,6 @@ namespace NZookeeper
         public async Task ConnectAsync()
         {
             _zk = new ZooKeeper(_options.ConnectionString, _options.SessionTimeout, new InternalZkWatchWrapper(OnWatch));
-
             while (_zk.getState() == ZooKeeper.States.CONNECTING)
             {
                 await Task.Delay(100);

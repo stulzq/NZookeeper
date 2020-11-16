@@ -10,7 +10,7 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/stulzq/NZookeeper.git</RepositoryUrl>
     <PackageTags>zookeeper</PackageTags>
-    <Description>Zookeeper client ,encapsulated from ZookeeperEx, simplified use</Description>
+    <Description>A zookeeper client library based on ZookeeperEx for easily use.</Description>
   </PropertyGroup>
 
   <ItemGroup>

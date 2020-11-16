@@ -1,14 +1,14 @@
 # NZookeeper
 
-English|[中文](README_zh-CN.md)
+[English](README.md)|中文
 
-A zookeeper client library based on ZookeeperEx，easily use for Zookeeper.
+NZookeeper 是 Zookeeper 客户端库 ZookeeperEx 的封装，旨在**简化** ZookeeperEx 的使用。
 
-> Transaction operation is not supported at present, and will be supported in the next version
+> 目前还不支持事务操作，下个版本支持
 
-## Get start
+## 快速入门
 
-1.Connect to Zookeeper
+1.连接 Zookeeper
 
 ````csharp
 using var loggerFactory = LoggerFactory.Create(builder =>
@@ -19,14 +19,14 @@ using var loggerFactory = LoggerFactory.Create(builder =>
                     .AddConsole();
             });
 var logger = loggerFactory.CreateLogger<ZkConnection>();
-//Multiple zookeeper addresses are separated by ,
+//多个Zookeeper地址使用英文逗号分隔
 var zk = new ZkConnection(new ZkConnectionOptions() { ConnectionString = "localhost:2181", SessionTimeout = 5000 }, logger);
 await zk.ConnectAsync();
 ````
 
-2.Set watch event
+2.设置 Watch 事件
 
-> It is used to monitor node changes and data changes. Node changes include: node creation and node deletion
+> 用于监听节点变化和数据变化，节点变化包括：节点创建，节点删除
 
 ````csharp
 zk.OnWatch += Zk_OnWatch;
@@ -38,35 +38,35 @@ private Task Zk_OnWatch(ZkWatchEventArgs args)
 }
 ````
 
-3.Node operation
+3.节点操作
 
 ````csharp
-//Create node
-await zk.CreateNodeAsync("/mynode", "nodedata",
+//创建节点
+await zk.CreateNodeAsync("/mynode", "节点数据",
                     new List<Acl>() { new Acl(AclPerm.All, AclScheme.World, AclId.World()) }, NodeType.Ephemeral);
-//Get child node
+//获取子节点
 await zk.GetChildrenAsync("/mynode");
-//Delete node
+//删除节点
 await zk.DeleteNodeAsync("/mynode");
-//Check if the node exists
+//检查节点是否存在
 await zk.NodeExistsAsync("/mynode")
 ````
 
-4.Data
+4.数据
 
 ````csharp
-//Update node data
+//更新节点数据
 await zk.SetDataAsync("/mynode", "111");
-//Get node data
+//获取节点数据
 await zk.GetDataAsync("/mynode")
 ````
 
 5.ACL
 
 ````csharp
-//Get ACL
+//获取ACL
 await zk.GetAclAsync("/mynode");
-//Set ACL
+//设置ACL
 await zk.SetAclAsync("/mynode",new List<Acl>() { new Acl(AclPerm.All, AclScheme.World, AclId.World()) })
 ````
 
