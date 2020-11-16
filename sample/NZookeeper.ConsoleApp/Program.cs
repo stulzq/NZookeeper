@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using NZookeeper.ACL;
-using NZookeeper.Enums;
 using NZookeeper.Node;
 
 namespace NZookeeper.ConsoleApp
