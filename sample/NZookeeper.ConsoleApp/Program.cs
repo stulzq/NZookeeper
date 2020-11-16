@@ -22,7 +22,6 @@ namespace NZookeeper.ConsoleApp
             var zk = new ZkConnection(new ZkConnectionOptions() { ConnectionString = "localhost:2181", SessionTimeout = 5000 }, logger);
             zk.OnWatch += Zk_OnWatch;
             await zk.ConnectAsync();
-            
             while (true)
             {
                 await zk.CreateNodeAsync("/mynode", "ab",

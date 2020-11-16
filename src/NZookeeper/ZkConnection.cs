@@ -33,8 +33,11 @@ namespace NZookeeper
 
         #region Connection
 
+        public bool Connected => _connected;
+
         public async Task ConnectAsync()
         {
+            var times = 0;
             if (OnWatch == null)
             {
                 OnWatch += ZkConnection_OnWatch;
@@ -43,6 +46,11 @@ namespace NZookeeper
             while (_zk.getState() == ZooKeeper.States.CONNECTING)
             {
                 await Task.Delay(100);
+                times++;
+                if (times == 100)
+                {
+                    throw new ZkException("Connection timed out.");
+                }
             }
 
             var state = _zk.getState();
@@ -93,6 +101,7 @@ namespace NZookeeper
             if (_zk != null)
             {
                 await _zk.closeAsync();
+                _connected = false;
             }
         }
 
