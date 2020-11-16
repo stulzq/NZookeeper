@@ -1,5 +1,5 @@
 # NZookeeper
-[![Latest version](https://img.shields.io/nuget/v/CanalSharp.svg)](https://www.nuget.org/packages/CanalSharp/) 
+[![Latest version](https://img.shields.io/nuget/v/NZookeeper.svg)](https://www.nuget.org/packages/NZookeeper/) 
 
 English|[中文](README_zh-CN.md)
 
