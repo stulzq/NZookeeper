@@ -1,4 +1,5 @@
 # NZookeeper
+[![Latest version](https://img.shields.io/nuget/v/CanalSharp.svg)](https://www.nuget.org/packages/CanalSharp/) 
 
 English|[中文](README_zh-CN.md)
 
@@ -33,7 +34,7 @@ zk.OnWatch += Zk_OnWatch;
 
 private Task Zk_OnWatch(ZkWatchEventArgs args)
 {
-    Console.WriteLine($"OnWatch: Path {args.Path}, Type {args.EventType}, State {args.EventType}");
+    Console.WriteLine($"OnWatch: Path {args.Path}, Type {args.EventType}, State {args.State}");
     return Task.CompletedTask;
 }
 ````
