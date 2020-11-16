@@ -35,6 +35,10 @@ namespace NZookeeper
 
         public async Task ConnectAsync()
         {
+            if (OnWatch == null)
+            {
+                OnWatch += ZkConnection_OnWatch;
+            }
             _zk = new ZooKeeper(_options.ConnectionString, _options.SessionTimeout, new InternalZkWatchWrapper(OnWatch));
             while (_zk.getState() == ZooKeeper.States.CONNECTING)
             {
@@ -50,6 +54,11 @@ namespace NZookeeper
             _logger.LogInformation($"Zookeeper connected successfully, state: {state}");
 
             _connected = true;
+        }
+
+        private Task ZkConnection_OnWatch(ZkWatchEventArgs args)
+        {
+            return Task.CompletedTask;
         }
 
         public long GetSessionId()

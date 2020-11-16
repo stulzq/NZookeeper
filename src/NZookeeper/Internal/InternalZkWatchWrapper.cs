@@ -14,7 +14,7 @@ namespace NZookeeper.Internal
         }
         public override Task process(WatchedEvent ev)
         {
-            return _handler?.Invoke(new ZkWatchEventArgs(){Path = ev.getPath(),EventType = (WatchEventType)(int)ev.get_Type(),State = (ZkState)(int)ev.getState() });
+            return _handler.Invoke(new ZkWatchEventArgs(){Path = ev.getPath(),EventType = (WatchEventType)(int)ev.get_Type(),State = (ZkState)(int)ev.getState() });
         }
     }
 }
