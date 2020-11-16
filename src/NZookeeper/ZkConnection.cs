@@ -43,6 +43,7 @@ namespace NZookeeper
                 OnWatch += ZkConnection_OnWatch;
             }
             _zk = new ZooKeeper(_options.ConnectionString, _options.SessionTimeout, new InternalZkWatchWrapper(OnWatch));
+            _logger.LogInformation("Connecting to zookeeper...");
             while (_zk.getState() == ZooKeeper.States.CONNECTING)
             {
                 await Task.Delay(100);
@@ -82,23 +83,23 @@ namespace NZookeeper
         }
 
 
-        public void AddAuthInfo(AclScheme scheme,byte[] auth)
+        public void AddAuthInfo(AclScheme scheme, byte[] auth)
         {
             ValidateState();
-            _zk.addAuthInfo(scheme.ToString().ToLower(),auth);
+            _zk.addAuthInfo(scheme.ToString().ToLower(), auth);
         }
 
-        public Task Sync([NotNull]string path)
+        public Task Sync([NotNull] string path)
         {
             ValidateState();
             return _zk.sync(path);
         }
 
-        
+
 
         public async Task CloseAsync()
         {
-            if (_zk != null)
+            if (_zk != null && _connected)
             {
                 await _zk.closeAsync();
                 _connected = false;
@@ -118,7 +119,6 @@ namespace NZookeeper
         {
             ValidateState();
             var stat = await _zk.setDataAsync(path, data, version);
-            await NodeExistsAsync(path);
             return new NodeStatus(stat);
         }
 
@@ -184,7 +184,6 @@ namespace NZookeeper
             }
 
             await _zk.createAsync(path, data, ConvertToInnerAcl(acl), innerNodeType);
-            await _zk.existsAsync(path, true);
         }
 
         public async Task CreateNodeAsync<T>([NotNull] string path, T data, List<Acl> acl, NodeType type)
@@ -197,7 +196,6 @@ namespace NZookeeper
         {
             ValidateState();
             await _zk.deleteAsync(path, version);
-            await NodeExistsAsync(path);
         }
 
         public async Task<List<string>> GetChildrenAsync([NotNull] string path)
